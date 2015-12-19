@@ -39,7 +39,7 @@ def make_intervals(count):
     intervals = []
     for _ in range(count):
         start = random.randint(1, 40)
-        end = start + 4
+        end = start + random.randint(3, 17)
         intervals.append(Interval(start, end))
     return intervals
 
@@ -87,3 +87,10 @@ def fuzzyPartition(intervals, start, end):
     intervals[pivotPosition], intervals[end] = \
         intervals[end], intervals[pivotPosition]
     return pivotPosition
+
+
+def fuzzyQuickSort(intervals, start, end):
+    if start <= end:
+        pivot = fuzzyPartition(intervals, start, end)
+        fuzzyQuickSort(intervals, start, pivot - 1)
+        fuzzyQuickSort(intervals, pivot + 1, end)

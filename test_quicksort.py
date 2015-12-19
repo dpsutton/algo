@@ -68,7 +68,7 @@ class TestQuickSort(unittest.TestCase):
     def test_make_intervals_works(self):
         intervals = qs.make_intervals(10)
         self.assertEqual(len(intervals), 10)
-        lengths = [x.length() == 4 for x in intervals]
+        lengths = [x.length() >= 3 for x in intervals]
         self.assertTrue(all(lengths))
 
     def test_intervalOverlaps_startsbeforeOther_ChecksEndpoint(self):
@@ -118,3 +118,20 @@ class TestQuickSort(unittest.TestCase):
         greaterThan = [pivotInterval.containsPointBefore(x)
                        for x in intervals[pivot + 1:]]
         self.assertTrue(all(greaterThan))
+
+    def test_fuzzyQuickSort_SimpleArray(self):
+        high = qs.Interval(8, 9)
+        med = qs.Interval(5, 6)
+        low = qs.Interval(1, 3)
+        intervals = [high, med, low]
+        expected = [low, med, high]
+        qs.fuzzyQuickSort(intervals, 0, 2)
+        self.assertEqual(expected, intervals)
+
+    def test_fuzzyQuickSort_LotsOfValues(self):
+        size = 400
+        intervals = qs.make_intervals(size)
+        qs.fuzzyQuickSort(intervals, 0, size - 1)
+        success = [intervals[x].containsPointBefore(intervals[x + 1])
+                   for x in range(0, size - 1)]
+        self.assertTrue(all(success))
