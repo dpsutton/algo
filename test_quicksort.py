@@ -58,3 +58,63 @@ class TestQuickSort(unittest.TestCase):
 
         greaterThan = [x > pivotValue for x in arr[pivot + 1:]]
         self.assertTrue(all(greaterThan))
+
+    def test_tailRecursiveQuickSort_correctlySortsValues(self):
+        arr = self.get_values(200)
+        expected = sorted(arr)
+        qs.tailRecursiveQuicksort(arr, 0, 199)
+        self.assertEqual(expected, arr)
+
+    def test_make_intervals_works(self):
+        intervals = qs.make_intervals(10)
+        self.assertEqual(len(intervals), 10)
+        lengths = [x.length() == 4 for x in intervals]
+        self.assertTrue(all(lengths))
+
+    def test_intervalOverlaps_startsbeforeOther_ChecksEndpoint(self):
+        a = qs.Interval(1, 3)
+        b = qs.Interval(2, 4)
+        self.assertTrue(a.overlaps(b))
+        self.assertTrue(b.overlaps(a))
+
+    def test_intervalOverlaps_dontIntersect(self):
+        a = qs.Interval(1, 3)
+        b = qs.Interval(4, 6)
+        self.assertFalse(a.overlaps(b))
+        self.assertFalse(b.overlaps(a))
+
+    def test_intervalOverlapsWithSameStartingPoint_returnstrue(self):
+        a = qs.Interval(1, 2)
+        b = qs.Interval(1, 3)
+        self.assertTrue(a.overlaps(b))
+        self.assertTrue(b.overlaps(a))
+
+        a = qs.Interval(3, 4)
+        b = qs.Interval(2, 5)
+        self.assertTrue(a.overlaps(b))
+        self.assertTrue(b.overlaps(a))
+
+    def test_containsPointBefore_whenoverlaps_returnsTrue(self):
+        a = qs.Interval(1, 3)
+        b = qs.Interval(2, 4)
+        self.assertTrue(a.containsPointBefore(b))
+        self.assertTrue(b.containsPointBefore(a))
+
+    def test_containsPointBefore_withoutOverlap_checksStartPosition(self):
+        a = qs.Interval(1, 3)
+        b = qs.Interval(5, 7)
+        self.assertTrue(a.containsPointBefore(b))
+        self.assertFalse(b.containsPointBefore(a))
+
+    def test_fuzzyPartition_ObeysInvariants(self):
+        size = 4000
+        intervals = qs.make_intervals(size)
+        pivot = qs.fuzzyPartition(intervals, 0, size - 1)
+        pivotInterval = intervals[pivot]
+        lessThan = [x.containsPointBefore(pivotInterval)
+                    for x in intervals[1:pivot - 1]]
+        self.assertTrue(all(lessThan))
+
+        greaterThan = [pivotInterval.containsPointBefore(x)
+                       for x in intervals[pivot + 1:]]
+        self.assertTrue(all(greaterThan))
