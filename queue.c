@@ -12,11 +12,11 @@ queue* make_queue() {
 void queue_enqueue(queue* q, int e) {
   q->elements[q->tail] = e;
 
-  int tail = q->tail++;
-  if (tail == QUEUE_SIZE)
+  q->tail++;
+  if (q->tail  == QUEUE_SIZE)
     q->tail = 0;
-  if (tail = q->head) {
-    /* we have wrapped around to the head and are now overwriting good
+  if (q->tail == q->head) {
+    /* we have caught upy to the head and are now overwriting good
        values */
     q->caughtHead = 1;
     return;

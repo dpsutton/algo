@@ -35,7 +35,7 @@ void testQueue() {
   for (int i = 0; i < QUEUE_SIZE; i++) {
     queue_enqueue(q, 3);
   }
-  queue_enqueue(q, 3);
+
   testEqual("wrap around to 1", 1, q->tail);
   testEqual("but we have wrapped over good values", 1, q->caughtHead);
 
@@ -52,6 +52,10 @@ void testQueue() {
   testEqual("comes out in right order", 1, first);
   testEqual("comes out in right order", 3, third);
   testEqual("knows it is empty now", 1, queue_empty(q));
+  testEqual("does not think it has caught head", 0, q->caughtHead);
+
+  queue_dequeue(q);
+  testEqual("knows it underflows", 1, q->underflow);
 }
 
 void testStack() {
