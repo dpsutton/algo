@@ -80,6 +80,43 @@ void testStack() {
 
   free(stack);
 
+  doubleStack *db = malloc(sizeof(doubleStack));
+  initialize_doubleStack(db);
+  testEqual("double stack correctly initialized", STACK_SIZE, db->rightTop);
+  testEqual("left empty at init", 1, doubleStack_emptyLeft(db));
+  testEqual("right empty at init", 1, doubleStack_emptyRight(db));
+
+  doubleStack_pushLeft(db, 1);
+  testEqual("left pushed onto left", 1, db->elements[db->leftTop]);
+
+  doubleStack_pushRight(db, 2);
+  testEqual("right pushed correctly", 2, db->elements[db->rightTop]);
+
+  testEqual("left not empty after push", 0, doubleStack_emptyLeft(db));
+  testEqual("right not empty after push", 0, doubleStack_emptyRight(db));
+
+
+  int left = doubleStack_popLeft(db);
+  int right = doubleStack_popRight(db);
+  testEqual("left popped correctly", 1, left);
+  testEqual("right popped correctly", 2, right);
+
+  testEqual("not underflow left", 0, db->leftUnderflow);
+  testEqual("not underflow right", 0, db->rightUnderflow);
+    doubleStack_popLeft(db);
+  doubleStack_popRight(db);
+  testEqual("underflow left", 1, db->leftUnderflow);
+  testEqual("underflow right", 1, db->rightUnderflow);
+
+  initialize_doubleStack(db);
+  testEqual("no collision after init", 0, db->collision);
+  for (int i = 0; i < STACK_SIZE; ++i) {
+    doubleStack_pushLeft(db, 4);
+    doubleStack_pushRight(db, 5);
+  }
+  testEqual("collision after filling", 1, db->collision);
+
+
   printf("%s\n", KNRM);
 }
 void testEqual(char* testName, int expected, int actual) {
