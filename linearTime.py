@@ -10,3 +10,14 @@ def countingSort(A, k):
         for quantity in range(C[index]):
             B.append(index)
     return B
+
+
+def stableCountingSort(A, k):
+    C = [0 for _ in A]
+    B = [0] * len(A)
+    for value in A:
+        C[value] += 1
+    for i in range(1, k + 1):
+        C[i] += C[i - 1]
+
+    return B

@@ -20,6 +20,12 @@ class TestLinearTime(unittest.TestCase):
         actual = lt.countingSort(initial, 200)
         self.assertEqual(expected, actual)
 
+    def test_stableCountingSort_simplySorts(self):
+        initial = self.get_integers(6, 5)
+        expected = sorted(initial)
+        actual = lt.stableCountingSort(initial, 5)
+        self.assertEqual(expected, actual)
+
 
 if __name__ == '__main__':
     unittest.main()
