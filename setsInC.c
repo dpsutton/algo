@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "queue.h"
+#include "linked_list.h"
 
 void testEqual(char*, int, int);
+void testPointer(char*, void*, void*);
+
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
 #define KNRM  "\x1B[0m"
@@ -13,14 +16,41 @@ void testEqual(char*, int, int);
 
 void testStack();
 void testQueue();
+void testLinkedList();
 
 int main()
 {
   testStack();
   testQueue();
+  testLinkedList();
 
   printf("%s\n", KNRM);
   return 0;
+}
+
+void testLinkedList() {
+  printf("Testing Linked Lists:\n");
+  linkedList* ll = malloc(sizeof(linkedList));
+  linkedList_makeList(ll);
+  testPointer("nil value next points to itself", ll->nil, ll->nil->next);
+  testPointer("nil value previous points to itself", ll->nil, ll->nil->previous);
+
+  listNode* searching = linkedList_listSearch(ll, 3);
+  testPointer("should not find and be null", ll->nil, searching);
+
+  listNode* newElement = malloc(sizeof(listNode));
+  newElement->key = 3;
+  linkedList_listInsert(ll, newElement);
+  testPointer("should insert as the new head", newElement, ll->nil->next);
+
+  listNode* found = linkedList_listSearch(ll, 3);
+  testPointer("should find and return new node", newElement, found);
+
+  linkedList_listDelete(ll, newElement);
+  testPointer("should successfully delete the new element", ll->nil, ll->nil->next);
+  free(ll);
+  printf("%s\n", KNRM);
+
 }
 
 void testQueue() {
@@ -46,7 +76,7 @@ void testQueue() {
   queue_enqueue(q, 2);
   queue_enqueue(q, 3);
   int first = queue_dequeue(q);
-  int second = queue_dequeue(q);
+  queue_dequeue(q);
   int third = queue_dequeue(q);
 
   testEqual("comes out in right order", 1, first);
@@ -56,6 +86,10 @@ void testQueue() {
 
   queue_dequeue(q);
   testEqual("knows it underflows", 1, q->underflow);
+
+  free(q);
+  printf("%s\n", KNRM);
+
 }
 
 void testStack() {
@@ -103,7 +137,7 @@ void testStack() {
 
   testEqual("not underflow left", 0, db->leftUnderflow);
   testEqual("not underflow right", 0, db->rightUnderflow);
-    doubleStack_popLeft(db);
+  doubleStack_popLeft(db);
   doubleStack_popRight(db);
   testEqual("underflow left", 1, db->leftUnderflow);
   testEqual("underflow right", 1, db->rightUnderflow);
@@ -116,9 +150,10 @@ void testStack() {
   }
   testEqual("collision after filling", 1, db->collision);
 
-
+  free(db);
   printf("%s\n", KNRM);
 }
+
 void testEqual(char* testName, int expected, int actual) {
   printf("%s%s:\t", KCYN, testName);
   if (expected == actual)
@@ -129,4 +164,17 @@ void testEqual(char* testName, int expected, int actual) {
     printf("%sActual:\t%s%d\n", KNRM, KRED, actual);
 
   }
+}
+
+void testPointer(char* testName, void* expected, void* actual) {
+  printf("%s%s:\t", KCYN, testName);
+  if (expected == actual)
+    printf("%stest passed\n", KGRN);
+  else {
+    printf("%stest failed\n", KRED);
+    printf("%sExpected:\t%s%p\t", KNRM, KGRN, expected);
+    printf("%sActual:\t%s%p\n", KNRM, KRED, actual);
+
+  }
+
 }
