@@ -4,11 +4,12 @@ CC=gcc
 # Hey!, I am comment number 2. I want to say that CFLAGS will be the
 # options I'll pass to the compiler.
 CFLAGS=-c -Wall -g
+SUBS = test.o stack.o queue.o linked_list.o
 
 all: Sets
 
 Sets: stack.o queue.o linked_list.o test.o
-	$(CC) setsInC.c test.o stack.o queue.o linked_list.o -o sets
+	$(CC) setsInC.c $(SUBS) -o sets
 
 test.o:
 	$(CC) $(CFLAGS) test.c
