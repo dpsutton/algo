@@ -26,3 +26,51 @@ void linkedList_listDelete(linkedList* l, listNode* e) {
   e->previous->next = e->next;
   e->next->previous = e->previous;
 }
+
+void linkedList_makeSingle(singleList* l)
+{
+  l->head = NULL;
+}
+
+void linkedList_insertSingle(singleList* l, singleNode* n)
+{
+  n->next = l->head;
+  l->head = n;
+}
+
+singleNode* linkedList_deleteSingle(singleList* l, singleNode* n)
+{
+  singleNode* current = l->head;
+  singleNode* previous = NULL;
+  while(current && current != n)
+    {
+      previous = current;
+    }
+  if (current != NULL)
+    {
+      if (previous)
+        previous->next = current->next;
+      else
+        l->head = current->next;
+    }
+  return current;
+}
+
+void linkedList_reverseSingle(singleList* l)
+{
+  singleNode* current = l->head;
+  singleNode* previous = l->head;
+  singleNode* next = NULL;
+  if (!current || current->next)
+    return; /* empty list and single list are already reversed */
+  previous->next = NULL; /* the new tail */
+  current = current->next;
+  while (current)
+    {
+      next = current->next;
+      current->next = previous;
+      previous = current;
+      current = next;
+    }
+  l->head = current;
+}

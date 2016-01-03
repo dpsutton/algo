@@ -8,6 +8,22 @@ typedef struct listNode
   struct listNode* previous;
 } listNode;
 
+typedef struct singleNode
+{
+  int key;
+  struct singleNode* next;
+} singleNode;
+
+typedef struct singleList
+{
+  struct singleNode* head;
+} singleList;
+
+void linkedList_makeSingle(singleList*);
+void linkedList_insertSingle(singleList*, singleNode*);
+singleNode* linkedList_deleteSingle(singleList*, singleNode*);
+void linkedList_reverseSingle(singleList*);
+
 typedef struct linked_list
 {
   /* nil next is head, and previous is tail */

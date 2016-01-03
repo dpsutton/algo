@@ -49,6 +49,34 @@ void testLinkedList() {
   linkedList_listDelete(ll, newElement);
   testPointer("should successfully delete the new element", ll->nil, ll->nil->next);
   free(ll);
+
+  singleList* single = malloc(sizeof(singleList));
+  linkedList_makeSingle(single);
+
+  singleNode one = {1, NULL};
+  linkedList_insertSingle(single, &one);
+
+  testPointer("shoudl add single node", &one, single->head);
+
+  singleNode* deleted = linkedList_deleteSingle(single, &one);
+  testPointer("delete returns address of deleted", &one, deleted);
+  testPointer("delete sets head back to null when empty", NULL, single->head);
+
+  deleted = linkedList_deleteSingle(single, &one);
+  testPointer("delete when not present returns null", NULL, deleted);
+
+  singleNode two = {2, NULL};
+  singleNode three = {3, NULL};
+  linkedList_insertSingle(single, &one);
+  linkedList_insertSingle(single, &two);
+  linkedList_insertSingle(single, &three);
+  linkedList_reverseSingle(single);
+  testPointer("new head is third element", &three, single->head);
+  testPointer("second is still two", &two, single->head->next);
+  testPointer("third is one", &one, single->head->next->next);
+  testPointer("and third points to null", NULL, one.next);
+
+  free(single);
   printf("%s\n", KNRM);
 
 }
@@ -176,5 +204,4 @@ void testPointer(char* testName, void* expected, void* actual) {
     printf("%sActual:\t%s%p\n", KNRM, KRED, actual);
 
   }
-
 }
