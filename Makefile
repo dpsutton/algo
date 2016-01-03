@@ -7,8 +7,11 @@ CFLAGS=-c -Wall -g
 
 all: Sets
 
-Sets: stack.o queue.o linked_list.o
-	$(CC) setsInC.c stack.o queue.o linked_list.o -o sets
+Sets: stack.o queue.o linked_list.o test.o
+	$(CC) setsInC.c test.o stack.o queue.o linked_list.o -o sets
+
+test.o:
+	$(CC) $(CFLAGS) test.c
 
 linked_list.o: linked_list.c
 	$(CC) $(CFLAGS) linked_list.c

@@ -3,16 +3,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "linked_list.h"
-
-void testEqual(char*, int, int);
-void testPointer(char*, void*, void*);
-
-#define KRED  "\x1B[31m"
-#define KGRN  "\x1B[32m"
-#define KNRM  "\x1B[0m"
-#define KBLU  "\x1B[34m"
-#define KCYN  "\x1B[36m"
-
+#include "test.h"
 
 void testStack();
 void testQueue();
@@ -182,26 +173,3 @@ void testStack() {
   printf("%s\n", KNRM);
 }
 
-void testEqual(char* testName, int expected, int actual) {
-  printf("%s%s:\t", KCYN, testName);
-  if (expected == actual)
-    printf("%stest passed\n", KGRN);
-  else {
-    printf("%stest failed\n", KRED);
-    printf("%sExpected:\t%s%d\t", KNRM, KGRN, expected);
-    printf("%sActual:\t%s%d\n", KNRM, KRED, actual);
-
-  }
-}
-
-void testPointer(char* testName, void* expected, void* actual) {
-  printf("%s%s:\t", KCYN, testName);
-  if (expected == actual)
-    printf("%stest passed\n", KGRN);
-  else {
-    printf("%stest failed\n", KRED);
-    printf("%sExpected:\t%s%p\t", KNRM, KGRN, expected);
-    printf("%sActual:\t%s%p\n", KNRM, KRED, actual);
-
-  }
-}
