@@ -20,7 +20,8 @@ int main()
 }
 
 void testLinkedList() {
-  printf("Testing Linked Lists:\n");
+  printTestHeader("Testing Linked Lists:");
+  printSubHeader("Doubly linked list");
   linkedList* ll = malloc(sizeof(linkedList));
   linkedList_makeList(ll);
   testPointer("nil value next points to itself", ll->nil, ll->nil->next);
@@ -41,6 +42,7 @@ void testLinkedList() {
   testPointer("should successfully delete the new element", ll->nil, ll->nil->next);
   free(ll);
 
+  printSubHeader("singly linked list");
   singleList* single = malloc(sizeof(singleList));
   linkedList_makeSingle(single);
 
@@ -73,7 +75,7 @@ void testLinkedList() {
 }
 
 void testQueue() {
-  printf("Testing Queues:\n");
+  printTestHeader("Testing Queues:");
   queue* q = make_queue();
   testEqual("empty queue underflow = 0", 0, q->underflow);
 
@@ -112,7 +114,7 @@ void testQueue() {
 }
 
 void testStack() {
-  printf("Testing Stacks:\n");
+  printTestHeader("Testing Stacks:");
   stack *stack = make_stack();
   testEqual("empty stack knows its empty", 1, stack_empty(stack));
   testEqual("new stack has underflow = 0", 0, stack->underflow);
@@ -132,7 +134,9 @@ void testStack() {
   testEqual("sets underflow on stack", 1, stack->underflow);
 
   free(stack);
-
+  
+  printSubHeader("double stack");
+  
   doubleStack *db = malloc(sizeof(doubleStack));
   initialize_doubleStack(db);
   testEqual("double stack correctly initialized", STACK_SIZE, db->rightTop);

@@ -1,6 +1,17 @@
 #include <stdio.h>
 #include "test.h"
 
+void printTestHeader(char* testSuite)
+{
+  printf("*****************************\n");
+  printf("\t%s%s\n", KNRM ,testSuite);
+  printf("*****************************\n");
+}
+
+void printSubHeader(char* testSubHeader)
+{
+  printf("%s%s\n", KNRM, testSubHeader);
+}
 
 void testEqual(char* testName, int expected, int actual) {
   printf("%s%s:\t", KCYN, testName);

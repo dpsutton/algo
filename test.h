@@ -7,6 +7,8 @@
 #define KBLU  "\x1B[34m"
 #define KCYN  "\x1B[36m"
 
+void printTestHeader(char*);
+void printSubHeader(char*);
 void testEqual(char*, int, int);
 void testPointer(char*, void*, void*);
 
