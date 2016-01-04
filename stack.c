@@ -81,3 +81,37 @@ int doubleStack_emptyLeft(doubleStack* s) {
 int doubleStack_emptyRight(doubleStack* s) {
   return s->rightTop == STACK_SIZE;
 }
+
+void genericStack_intialize(genericStack* s)
+{
+  s->underflow = s->overflow = 0;
+  s->top = -1;
+}
+
+int genericStack_empty(genericStack* s)
+{
+  return s->top == -1;
+}
+
+void genericStack_push(genericStack* s, void* item)
+{
+  s->top++;
+  if (s->top > STACK_SIZE)
+    {
+      s->overflow = 1;
+      return;
+    }
+  s->elements[s->top] = item;
+}
+
+void* genericStack_pop(genericStack* s)
+{
+  if (genericStack_empty(s))
+    {
+      s->underflow = 1;
+      return NULL;
+    }
+  void* item = s->elements[s->top];
+  s->top--;
+  return item;
+}
