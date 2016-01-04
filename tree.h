@@ -9,5 +9,7 @@ typedef struct treeNode
   struct treeNode* parent;
 } tree;
 
+void tree_visitRecursive(tree*);
+void tree_visitIterative(tree*);
 
 #endif /* TREE_H */

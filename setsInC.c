@@ -4,19 +4,32 @@
 #include "queue.h"
 #include "linked_list.h"
 #include "test.h"
+#include "tree.h"
 
 void testStack();
 void testQueue();
 void testLinkedList();
+void testTree();
 
 int main()
 {
   testStack();
   testQueue();
   testLinkedList();
+  testTree();
 
   printf("%s\n", KNRM);
   return 0;
+}
+
+void testTree()
+{
+  printTestHeader("Testing Trees:");
+  printSubHeader("Recursive visiting tree");
+  tree one =  {1, NULL, NULL, NULL};
+  tree three = {3, NULL, NULL, NULL};
+  tree two = {2, &one, &three, NULL};
+  tree_visitRecursive(&two);
 }
 
 void testLinkedList() {
