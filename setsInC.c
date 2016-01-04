@@ -27,9 +27,11 @@ void testTree()
   printTestHeader("Testing Trees:");
   printSubHeader("Recursive visiting tree");
   tree one =  {1, NULL, NULL, NULL};
-  tree three = {3, NULL, NULL, NULL};
-  tree two = {2, &one, &three, NULL};
-  tree_visitRecursive(&two);
+  tree two = {2, &one, NULL, NULL};
+  tree four = {4, NULL, NULL, NULL};
+  tree three = {3, &two, &four, NULL};
+  tree_visitRecursive(&three);
+  tree_visitIterative(&three);
 }
 
 void testLinkedList() {

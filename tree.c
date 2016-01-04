@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "tree.h"
+#include "stack.h"
 
 void printNode(tree*);
 
@@ -13,7 +14,20 @@ void tree_visitRecursive(tree* n)
 
 void tree_visitIterative(tree* n)
 {
-  printf("not implemented yet");
+  genericStack s;
+  genericStack_initialize(&s);
+  genericStack_push(&s, n);
+  tree* current = NULL;
+  while (!(genericStack_empty(&s)))
+    {
+      current = genericStack_pop(&s);
+      if(current->right)
+        genericStack_push(&s, current->right);
+      if (current->left)
+        genericStack_push(&s, current->left);
+      
+      printNode(current);
+    }
 }
 
 void printNode(tree* n)

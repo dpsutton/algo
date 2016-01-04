@@ -82,7 +82,7 @@ int doubleStack_emptyRight(doubleStack* s) {
   return s->rightTop == STACK_SIZE;
 }
 
-void genericStack_intialize(genericStack* s)
+void genericStack_initialize(genericStack* s)
 {
   s->underflow = s->overflow = 0;
   s->top = -1;
