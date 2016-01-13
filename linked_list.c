@@ -84,10 +84,11 @@ void genericList_initialize(genericList* l, comparison_function compare)
 
 void genericList_insert(genericList* l, genericNode* node)
 {
-  node->next = l->nil->next;
-  l->nil->next->previous = node;
-  l->nil->next = node;
   node->previous = l->nil;
+  genericNode* currentHead = l->nil->next;
+  currentHead->previous = node;
+  node->next = currentHead;
+  l->nil->next = node;
 }
 
 genericNode* genericList_search(genericList* l, void* key)
@@ -97,6 +98,7 @@ genericNode* genericList_search(genericList* l, void* key)
     {
       if (l->compare(current, key))
         return current;
+      current = current->next;
     }
   return NULL;
 }
