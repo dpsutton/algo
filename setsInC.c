@@ -101,7 +101,15 @@ void testLinkedList() {
   comparison_function compare = compareInteger;
   genericList_initialize(l, *compare);
 
-  
+  genericList_insert(l, &gen1);
+  testPointer("inserted value", &gen1, l->nil->next);
+  testPointer("can find it as well",
+              &gen1, genericList_search(l, &value));
+  testPointer("it set the next node to l->nil",
+              l->nil, gen1.next);
+  testPointer("it set the previous node to l->nil",
+              l->nil, gen1.previous);
+
   free(l);
   printf("%s\n", KNRM);
 }
