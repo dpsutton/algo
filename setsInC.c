@@ -91,12 +91,13 @@ void testLinkedList() {
 
   printSubHeader("generic linked list");
   genericList* l = malloc(sizeof(genericList));
+  int firstNodeValue = 1;
+  genericNode gen1 = {&firstNodeValue, NULL, NULL };
+  int secondNodeValue = 2;
+  genericNode gen2 = {&secondNodeValue, NULL, NULL};
 
   printSubHeader("check the comparison function");
-  int value = 1;
-  genericNode gen1 = {&value, NULL, NULL };
-
-  int comparisonResult = compareInteger(&gen1, &value);
+  int comparisonResult = compareInteger(&gen1, &firstNodeValue);
   testEqual("these void pointers aren't that scary",
             1, comparisonResult);
 
@@ -104,13 +105,20 @@ void testLinkedList() {
   genericList_initialize(l, *compare);
 
   genericList_insert(l, &gen1);
-  testPointer("inserted value", &gen1, l->nil->next);
+  testPointer("inserted firstNodeValue", &gen1, l->nil->next);
   testPointer("can find it as well",
-              &gen1, genericList_search(l, &value));
+              &gen1, genericList_search(l, &firstNodeValue));
   testPointer("it set the next node to l->nil",
               l->nil, gen1.next);
   testPointer("it set the previous node to l->nil",
               l->nil, gen1.previous);
+  genericList_insert(l, &gen2);
+  testPointer("it can add another node (sets as next)",
+              &gen2, l->nil->next);
+  testPointer("l->nil->next->next is the first inserted element",
+              &gen1, l->nil->next->next);
+  testPointer("it can still find the original node",
+              &gen1, genericList_search(l, &firstNodeValue));
 
   free(l);
   printf("%s\n", KNRM);
