@@ -2,3 +2,5 @@
 *.o
 sets
 stack
+TAGS
+tags
