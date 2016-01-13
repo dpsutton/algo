@@ -36,5 +36,6 @@ void printNode(tree* n)
 {
   if (!n->left && !n->right)
     printf("%sleaf node value: \t %d %s \n", KRED, n->x, KNRM);
-  printf("%snode value:\t%d%s\n", KBLU, n->x, KNRM);
+  else
+    printf("%snode value:\t%d%s\n", KBLU, n->x, KNRM);
 }
