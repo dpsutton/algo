@@ -90,9 +90,6 @@ void testLinkedList() {
   printSubHeader("generic linked list");
   genericList* l = malloc(sizeof(genericList));
 
-  comparison_function compare = compareInteger;
-  genericList_initialize(l, *compare);
-
   printSubHeader("check the comparison function");
   int value = 1;
   genericNode gen1 = {&value, NULL, NULL };
@@ -101,6 +98,10 @@ void testLinkedList() {
   testEqual("these void pointers aren't that scary",
             1, comparisonResult);
 
+  comparison_function compare = compareInteger;
+  genericList_initialize(l, *compare);
+
+  
   free(l);
   printf("%s\n", KNRM);
 }
