@@ -10,7 +10,7 @@ OFILES := $(foreach file, $(SUBS), $(file).o)
 all: Sets
 
 Sets: $(SUBS)
-	$(CC) setsInC.c $(OFILES) -o sets
+	$(CC) -Wall -g setsInC.c $(OFILES) -o sets
 
 tree: tree.c
 	$(CC) $(CFLAGS) tree.c
