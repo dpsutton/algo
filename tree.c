@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "tree.h"
 #include "stack.h"
+#include "test.h"
 
 void printNode(tree*);
 
@@ -21,19 +22,19 @@ void tree_visitIterative(tree* n)
   while (!(genericStack_empty(&s)))
     {
       current = genericStack_pop(&s);
-      if(current->right)
-        genericStack_push(&s, current->right);
-      if (current->left)
-        genericStack_push(&s, current->left);
-      
+      if (current) {
+        if(current->right)
+          genericStack_push(&s, current->right);
+        if (current->left)
+          genericStack_push(&s, current->left);
+      }
       printNode(current);
     }
 }
 
 void printNode(tree* n)
 {
-  if (!n)
-    printf("leaf node\n");
-  else
-    printf("node value:\t%d\n", n->x);
+  if (!n->left && !n->right)
+    printf("%sleaf node value: \t %d %s \n", KRED, n->x, KNRM);
+  printf("%snode value:\t%d%s\n", KBLU, n->x, KNRM);
 }
