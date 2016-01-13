@@ -74,3 +74,21 @@ void linkedList_reverseSingle(singleList* l)
     }
   l->head = current;
 }
+
+void genericList_initialize(genericList* l, comparison_function compare)
+{
+  l->nil = malloc(sizeof(genericNode));
+  l->nil->next = l->nil->previous = l->nil;
+  l->compare = compare;
+}
+
+genericNode* genericList_search(genericList* l, void* key)
+{
+  genericNode* current = l->nil->next;
+  while (current != l->nil)
+    {
+      if (l->compare(current, key))
+        return current;
+    }
+  return NULL;
+}

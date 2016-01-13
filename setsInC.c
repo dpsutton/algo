@@ -11,6 +11,8 @@ void testQueue();
 void testLinkedList();
 void testTree();
 
+int compareInteger(genericNode*, void* );
+
 int main()
 {
   testStack();
@@ -83,11 +85,33 @@ void testLinkedList() {
   testPointer("second is still two", &two, single->head->next);
   testPointer("third is one", &one, single->head->next->next);
   testPointer("and third points to null", NULL, one.next);
-
   free(single);
-  printf("%s\n", KNRM);
 
+  printSubHeader("generic linked list");
+  genericList* l = malloc(sizeof(genericList));
+
+  comparison_function compare = compareInteger;
+  genericList_initialize(l, *compare);
+
+  printSubHeader("check the comparison function");
+  int value = 1;
+  genericNode gen1 = {&value, NULL, NULL };
+
+  int comparisonResult = compareInteger(&gen1, &value);
+  testEqual("these void pointers aren't that scary",
+            1, comparisonResult);
+
+  free(l);
+  printf("%s\n", KNRM);
 }
+
+int compareInteger(genericNode* n, void* k)
+{
+  int *x = (int*)k;
+  return *(int*)n->value == *x;
+}
+
+
 
 void testQueue() {
   printTestHeader("Testing Queues:");
@@ -149,9 +173,9 @@ void testStack() {
   testEqual("sets underflow on stack", 1, stack->underflow);
 
   free(stack);
-  
+
   printSubHeader("double stack");
-  
+
   doubleStack *db = malloc(sizeof(doubleStack));
   initialize_doubleStack(db);
   testEqual("double stack correctly initialized", STACK_SIZE, db->rightTop);
@@ -191,4 +215,3 @@ void testStack() {
   free(db);
   printf("%s\n", KNRM);
 }
-
