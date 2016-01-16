@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack.h"
-#include "queue.h"
-#include "linked_list.h"
-#include "test.h"
-#include "tree.h"
+#include "../sets/stack.h"
+#include "../sets/queue.h"
+#include "../sets/linked_list.h"
+#include "../test/test.h"
+#include "../sets/tree.h"
 
 void testStack();
 void testQueue();
@@ -28,7 +28,7 @@ void testTree()
 {
   printTestHeader("Testing Trees:");
   printSubHeader("Recursive visiting tree");
-  tree one =  {1, NULL, NULL, NULL};
+  tree one = {1, NULL, NULL, NULL};
   tree two = {2, &one, NULL, NULL};
   tree four = {4, NULL, NULL, NULL};
   tree three = {3, &two, &four, NULL};

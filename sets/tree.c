@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "tree.h"
 #include "stack.h"
-#include "test.h"
+#include "../test/test.h"
 
 void printNode(tree*);
 
@@ -37,5 +37,5 @@ void printNode(tree* n)
   if (!n->left && !n->right)
     printf("%sleaf node value: \t %d %s \n", KRED, n->x, KNRM);
   else
-    printf("%snode value:\t%d%s\n", KBLU, n->x, KNRM);
+    printf("%snode value:\t%d%s\n", KCYN, n->x, KNRM);
 }
