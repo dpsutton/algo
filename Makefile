@@ -28,4 +28,4 @@ stack: sets/stack.c
 	$(CC) $(CFLAGS) sets/stack.c
 
 clean:
-	rm *o algo
+	rm *.o algo
