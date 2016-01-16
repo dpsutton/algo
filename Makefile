@@ -21,3 +21,4 @@ Algo: $(CODEFILES) $(TESTFILES)
 
 clean:
 	rm algo
+	rm $(shell find ./ -name *.o)
