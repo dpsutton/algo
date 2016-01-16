@@ -3,7 +3,7 @@
 #include "../sets/stack.h"
 #include "../sets/queue.h"
 #include "../sets/linked_list.h"
-#include "../test/test.h"
+#include "test.h"
 #include "../sets/tree.h"
 
 void testStack();
