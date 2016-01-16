@@ -6,7 +6,6 @@ typedef struct treeNode
   int x;
   struct treeNode* left;
   struct treeNode* right;
-  struct treeNode* parent;
 } tree;
 
 void tree_visitRecursive(tree*);
