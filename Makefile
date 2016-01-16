@@ -4,7 +4,7 @@ CC=gcc
 # Hey!, I am comment number 2. I want to say that CFLAGS will be the
 # options I'll pass to the compiler.
 CFLAGS=-c -Wall -g
-SUBS = testHelpers stack queue linked_list tree
+SUBS = testHelpers stack queue linked_list tree linked_list_tests
 OFILES := $(foreach file, $(SUBS), $(file).o)
 
 all: Algo
@@ -17,6 +17,9 @@ tree: sets/tree.c
 
 testHelpers: test/test.c
 	$(CC) $(CFLAGS) test/test.c -o testHelpers.o
+
+linked_list_tests: test/linked_list_tests.c
+	$(CC) $(CFLAGS) test/linked_list_tests.c
 
 linked_list: sets/linked_list.c
 	$(CC) $(CFLAGS) sets/linked_list.c
