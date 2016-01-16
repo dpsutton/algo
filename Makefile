@@ -7,7 +7,7 @@ CFLAGS=-c -Wall -g
 SUBS = stack queue linked_list tree
 CODEFILES := $(foreach file, $(SUBS), sets/$(file).o)
 
-TESTS = linked_list_tests stack_queue_tests test
+TESTS = tree_tests linked_list_tests stack_queue_tests test
 TESTFILES := $(foreach file, $(TESTS), test/$(file).o)
 
 

@@ -7,10 +7,7 @@
 #include "../sets/tree.h"
 #include "linked_list_tests.h"
 #include "stack_queue_tests.h"
-
-
-void testTree();
-
+#include "tree_tests.h"
 
 int main()
 {
@@ -22,21 +19,3 @@ int main()
   printf("%s\n", KNRM);
   return 0;
 }
-
-void testTree()
-{
-  printTestHeader("Testing Trees:");
-  printSubHeader("Recursive visiting tree");
-  tree one = {1, NULL, NULL, NULL};
-  tree two = {2, &one, NULL, NULL};
-  tree four = {4, NULL, NULL, NULL};
-  tree three = {3, &two, &four, NULL};
-  printSubHeader("Recursive descent through tree");
-  tree_visitRecursive(&three);
-  printSubHeader("iterative journey through tree");
-  tree_visitIterative(&three);
-}
-
-
-
-
